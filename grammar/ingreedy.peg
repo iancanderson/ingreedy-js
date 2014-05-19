@@ -1,0 +1,198 @@
+start
+  = ingredient_addition
+
+ingredient_additions
+  = ingredient_addition+
+
+ingredient_addition
+  = amount:amount (ws+)? container:(container)? unit:(unit)? (ws+)? ingredient:ingredient [\n]?  {
+    return {
+      amount: amount,
+	  container: container,
+      ingredient: ingredient,
+      unit: unit
+    };
+  }
+
+amount
+  = float
+  / mixed_number
+  / fraction
+  / integer
+  
+container
+  = "("? amount:amount (ws+)? unit:unit")"? {
+    return { amount: amount, unit: unit };
+  }
+
+ws
+  = " "
+  / [\t]
+
+space
+  = " "
+
+ingredient
+  = phrase
+
+phrase
+  = $(word (space word)*)
+  
+word
+  = letters:letter+ { return letters.join(''); }
+
+float
+  = $(integer? [.] integer)
+
+mixed_number
+  = $(integer space fraction)
+
+fraction
+  = $(integer [/] integer)
+
+integer
+  = digits:[0-9]+ { return digits.join(''); }
+  
+letter
+  = [a-zA-Z]
+
+unit
+  = english_unit
+  / metric_unit
+  / imprecise_unit
+
+english_unit
+  = cup
+  / fluid_ounce
+  / gallon
+  / ounce
+  / pint
+  / pound
+  / quart
+  / tablespoon
+  / teaspoon
+  
+cup
+  = 'cups'i
+  / 'cup'i
+  / 'c.'i
+  / 'c'i
+  
+fluid_ounce
+  = 'fluid ounces'i
+  / 'fluid ounce'i
+  / 'fl. oz.'i
+  / 'fl oz'i
+  
+gallon
+  = 'gallons'i
+  / 'gallon'i
+  / 'gal.'i
+  / 'gal'i
+  
+ounce
+  = 'ounces'i
+  / 'ounce'i
+  / 'oz.'i
+  / 'oz'i
+  
+pint
+  = 'pints'i
+  / 'pint'i
+  / 'pt.'i
+  / 'pt'i
+ 
+pound
+  = 'pounds'i
+  / 'pound'i
+  / 'lbs.'i
+  / 'lbs'i
+  / 'lb.'i
+  / 'lb'i
+  
+quart
+  = 'quarts'i
+  / 'quart'i
+  / 'qts.'i
+  / 'qts'i
+  / 'qt.'i
+  / 'qt'i
+  
+tablespoon
+  = 'tablespoons'i
+  / 'tablespoon'i
+  / 'tbsp.'i
+  / 'tbsp'i
+  / 'tbs.'i
+  / 'tbs'i
+  / 'T.'
+  / $('T' ! letter)
+  
+teaspoon
+  = 'teaspoons'i
+  / 'teaspoon'i
+  / 'tsp.'i
+  / 'tsp'i
+  / 't.'
+  / $('t' ! letter)
+
+metric_unit
+  = gram
+  / kilogram
+  / liter
+  / milligram
+  / milliliter
+  
+gram
+  = 'grams'i
+  / 'gram'i
+  / 'gr.'i
+  / 'gr'i
+  / 'g.'i
+  / 'g'i
+
+kilogram
+  = 'kilograms'i
+  / 'kilogram'i
+  / 'kg.'i
+  / 'kg'i
+  
+liter
+  = 'liters'i
+  / 'liter'i
+  / 'l.'i
+  / 'l'i
+  
+milligram
+  = 'milligrams'i
+  / 'milligram'i
+  / 'mg.'i
+  / 'mg'i
+  
+milliliter
+  = 'milliliters'i
+  / 'milliliter'i
+  / 'ml.'i
+  / 'ml'i
+
+imprecise_unit
+  = pinch
+  / dash
+  / touch
+  / handful
+
+pinch
+  = 'pinches'i
+  / 'pinch'i
+  
+dash
+  = 'dashes'i
+  / 'dash'i
+  
+touch
+  = 'touches'i
+  / 'touch'i
+  
+handful
+  = 'handfuls'i
+  / 'handful'i

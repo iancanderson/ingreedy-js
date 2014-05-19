@@ -1,0 +1,27 @@
+{
+  "name": "ingreedy-js",
+  "description": "natural language parsing for recipe ingredients",
+  "version": "0.1.0",
+  "homepage": "https://github.com/iancanderson/ingreedy-js",
+  "author": {
+    "name": "Ian C. Anderson",
+    "email": "ian@iancanderson.com",
+    "url": "http://iancanderson.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iancanderson/ingreedy-js.git"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "bugs": {
+    "url": "https://github.com/iancanderson/ingreedy-js/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-jasmine": "~0.4.0",
+    "grunt-peg": "^1.3.1"
+  },
+  "dependencies": {}
+}
