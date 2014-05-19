@@ -3,11 +3,11 @@
 ```javascript
 var result = Ingreedy.parse('1 lb. potatoes');
 result.amount
-  #=> '1'
+  //=> '1'
 result.unit
-  #=> 'lb.'
+  //=> 'lb.'
 result.ingredient
-  #=> "potatoes"
+  //=> "potatoes"
 ```
 
 # Pieces of Flair
