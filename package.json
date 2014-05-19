@@ -13,7 +13,7 @@
     "url": "git://github.com/iancanderson/ingreedy-js.git"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt travis --verbose"
   },
   "bugs": {
     "url": "https://github.com/iancanderson/ingreedy-js/issues"

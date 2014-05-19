@@ -24,6 +24,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['build', 'jasmine']);
   grunt.registerTask('build', ['peg']);
 
+  grunt.registerTask('travis', ['test']);
   grunt.registerTask('default', ['test']);
-
 };
