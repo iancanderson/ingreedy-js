@@ -6,12 +6,20 @@ ingredient_additions
 
 ingredient_addition
   = amount:amount (ws+)? container:container? unit:unit? (ws+)? ingredient:ingredient? [\n]?  {
-    return {
+    var result = {
       amount: amount,
       container: container,
       ingredient: ingredient,
       unit: unit
     };
+
+    for(var i in result) {
+      if(result[i] === null || result[i] === undefined) {
+        delete result[i];
+      }
+    }
+
+    return result;
   }
 
 amount

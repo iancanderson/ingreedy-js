@@ -1,6 +1,6 @@
 'use strict';
 
-describe("Ingreedy", function() {
+describe("Amount parsing", function() {
   var parser = Ingreedy;
 
   it('parses integers', function() {

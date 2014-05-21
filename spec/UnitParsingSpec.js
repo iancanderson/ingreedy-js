@@ -15,6 +15,7 @@ var unitMatchers = {
 
         if(specResult.pass !== false) {
           specResult.pass = !util.equals(parserResult.unit, null);
+          specResult.pass = !util.equals(parserResult.unit, undefined);
         }
 
         if(specResult.pass) {

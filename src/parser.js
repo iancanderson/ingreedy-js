@@ -38,12 +38,20 @@ Ingreedy = (function() {
         peg$c3 = /^[\n]/,
         peg$c4 = { type: "class", value: "[\\n]", description: "[\\n]" },
         peg$c5 = function(amount, container, unit, ingredient) {
-            return {
+            var result = {
               amount: amount,
               container: container,
               ingredient: ingredient,
               unit: unit
             };
+
+            for(var i in result) {
+              if(result[i] === null || result[i] === undefined) {
+                delete result[i];
+              }
+            }
+
+            return result;
           },
         peg$c6 = "(",
         peg$c7 = { type: "literal", value: "(", description: "\"(\"" },
