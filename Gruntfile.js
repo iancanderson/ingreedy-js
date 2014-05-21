@@ -15,15 +15,26 @@ module.exports = function(grunt) {
         dest: 'src/parser.js',
         options: { exportVar: 'Ingreedy' }
       }
+    },
+    watch: {
+      grammar: {
+        files: ['grammar/*.peg'],
+        tasks: ['build', 'test']
+      },
+      test: {
+        files: ['spec/**/*.js'],
+        tasks: ['test']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-peg');
 
-  grunt.registerTask('test', ['build', 'jasmine']);
+  grunt.registerTask('test', ['jasmine']);
   grunt.registerTask('build', ['peg']);
 
-  grunt.registerTask('travis', ['test']);
-  grunt.registerTask('default', ['test']);
+  grunt.registerTask('travis', ['build', 'test']);
+  grunt.registerTask('default', ['build', 'test']);
 };

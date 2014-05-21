@@ -5,10 +5,10 @@ ingredient_additions
   = ingredient_addition+
 
 ingredient_addition
-  = amount:amount (ws+)? container:(container)? unit:(unit)? (ws+)? ingredient:ingredient [\n]?  {
+  = amount:amount (ws+)? container:container? unit:unit? (ws+)? ingredient:ingredient? [\n]?  {
     return {
       amount: amount,
-	  container: container,
+      container: container,
       ingredient: ingredient,
       unit: unit
     };
@@ -19,7 +19,7 @@ amount
   / mixed_number
   / fraction
   / integer
-  
+
 container
   = "("? amount:amount (ws+)? unit:unit")"? {
     return { amount: amount, unit: unit };
@@ -37,7 +37,7 @@ ingredient
 
 phrase
   = $(word (space word)*)
-  
+
 word
   = letters:letter+ { return letters.join(''); }
 
@@ -52,14 +52,14 @@ fraction
 
 integer
   = digits:[0-9]+ { return digits.join(''); }
-  
+
 letter
   = [a-zA-Z]
 
 unit
-  = english_unit
-  / metric_unit
-  / imprecise_unit
+  = $(english_unit !letter)
+  / $(metric_unit !letter)
+  / $(imprecise_unit !letter)
 
 english_unit
   = cup
@@ -71,37 +71,38 @@ english_unit
   / quart
   / tablespoon
   / teaspoon
-  
+
 cup
   = 'cups'i
   / 'cup'i
   / 'c.'i
   / 'c'i
-  
+
 fluid_ounce
-  = 'fluid ounces'i
-  / 'fluid ounce'i
-  / 'fl. oz.'i
-  / 'fl oz'i
-  
+  = fluid ws ounce
+
+fluid
+  = 'fluid'i
+  / 'fl'i '.'?
+
 gallon
   = 'gallons'i
   / 'gallon'i
   / 'gal.'i
   / 'gal'i
-  
+
 ounce
   = 'ounces'i
   / 'ounce'i
   / 'oz.'i
   / 'oz'i
-  
+
 pint
   = 'pints'i
   / 'pint'i
   / 'pt.'i
   / 'pt'i
- 
+
 pound
   = 'pounds'i
   / 'pound'i
@@ -109,7 +110,7 @@ pound
   / 'lbs'i
   / 'lb.'i
   / 'lb'i
-  
+
 quart
   = 'quarts'i
   / 'quart'i
@@ -117,7 +118,7 @@ quart
   / 'qts'i
   / 'qt.'i
   / 'qt'i
-  
+
 tablespoon
   = 'tablespoons'i
   / 'tablespoon'i
@@ -126,15 +127,15 @@ tablespoon
   / 'tbs.'i
   / 'tbs'i
   / 'T.'
-  / $('T' ! letter)
-  
+  / 'T'
+
 teaspoon
   = 'teaspoons'i
   / 'teaspoon'i
   / 'tsp.'i
   / 'tsp'i
   / 't.'
-  / $('t' ! letter)
+  / 't'
 
 metric_unit
   = gram
@@ -142,7 +143,7 @@ metric_unit
   / liter
   / milligram
   / milliliter
-  
+
 gram
   = 'grams'i
   / 'gram'i
@@ -156,19 +157,19 @@ kilogram
   / 'kilogram'i
   / 'kg.'i
   / 'kg'i
-  
+
 liter
   = 'liters'i
   / 'liter'i
   / 'l.'i
   / 'l'i
-  
+
 milligram
   = 'milligrams'i
   / 'milligram'i
   / 'mg.'i
   / 'mg'i
-  
+
 milliliter
   = 'milliliters'i
   / 'milliliter'i
@@ -176,23 +177,23 @@ milliliter
   / 'ml'i
 
 imprecise_unit
-  = pinch
-  / dash
-  / touch
+  = dash
   / handful
+  / pinch
+  / touch
+
+dash
+  = 'dashes'i
+  / 'dash'i
+
+handful
+  = 'handfuls'i
+  / 'handful'i
 
 pinch
   = 'pinches'i
   / 'pinch'i
-  
-dash
-  = 'dashes'i
-  / 'dash'i
-  
+
 touch
   = 'touches'i
   / 'touch'i
-  
-handful
-  = 'handfuls'i
-  / 'handful'i
