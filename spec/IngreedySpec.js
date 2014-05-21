@@ -45,4 +45,17 @@ describe("Ingreedy", function() {
       });
     });
   });
+
+  describe('ingredient additions with a container', function() {
+    it('parses the correct values', function() {
+      expect('2 28 oz can tomatoes').toBeParsedAs({
+        amount: '2',
+        ingredient: 'can tomatoes',
+        container: {
+          amount: '28',
+          unit: 'oz'
+        }
+      });
+    });
+  });
 });
