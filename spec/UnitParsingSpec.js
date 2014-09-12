@@ -14,12 +14,12 @@ var unitMatchers = {
         }
 
         if(specResult.pass !== false) {
-          specResult.pass = !util.equals(parserResult.unit, null);
-          specResult.pass = !util.equals(parserResult.unit, undefined);
+          specResult.pass = !util.equals(parserResult.measurements[0].unit, null);
+          specResult.pass = !util.equals(parserResult.measurements[0].unit, undefined);
         }
 
         if(specResult.pass) {
-          specResult.message = 'Ingreedy successfully parsed the unit "' + parserResult.unit + '" from "' + expected + '"'
+          specResult.message = 'Ingreedy successfully parsed the unit "' + parserResult.measurements[0].unit + '" from "' + expected + '"'
         } else {
           specResult.message = 'Expected Ingreedy to parse the unit from "' + expected + '", but it didn\'t.'
         }
@@ -136,6 +136,23 @@ describe("Unit parsing", function() {
       expect(parser).toParseUnit('1 t. water');
       expect(parser).toParseUnit('1 t water');
     });
+
+    it('parses feet', function() {
+      expect(parser).toParseUnit('2 feet tortilla');
+      expect(parser).toParseUnit('1 foot tortilla');
+      expect(parser).toParseUnit('1 ft. tortilla');
+      expect(parser).toParseUnit('1 ft tortilla');
+      expect(parser).toParseUnit('1" tortilla');
+    });
+
+    it('parses inches', function() {
+      expect(parser).toParseUnit('2 inches tortilla');
+      expect(parser).toParseUnit('1 inch tortilla');
+      expect(parser).toParseUnit('1 in. tortilla');
+      expect(parser).toParseUnit('1 in tortilla');
+      expect(parser).toParseUnit('1\' tortilla');
+    });
+
   });
 
   describe('metric units', function() {

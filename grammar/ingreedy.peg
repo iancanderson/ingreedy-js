@@ -5,11 +5,27 @@ ingredient_additions
   = ingredient_addition+
 
 ingredient_addition
-  = amount:amount (ws+)? container:container? unit:unit? (ws+)? ingredient:ingredient? [\n]?  {
+  = measurements:measurement* ingredient:ingredient?  {
+    var result = {
+      measurements: measurements,
+      ingredient: ingredient,
+    };
+
+    for(var i in result) {
+      if(result[i] === null || result[i] === undefined) {
+        delete result[i];
+      }
+    }
+
+    return result;
+  }
+
+measurement
+  = amount:amount (ws+)? container:container? unit:unit? ($(',and 'i) / $(', and 'i) / $(', 'i) / $(' and 'i) / (ws+)?) {
+
     var result = {
       amount: amount,
       container: container,
-      ingredient: ingredient,
       unit: unit
     };
 
@@ -44,7 +60,7 @@ ingredient
   = phrase
 
 phrase
-  = $(word (space word)*)
+  = $((. / word)*)
 
 word
   = letters:letter+ { return letters.join(''); }
@@ -79,6 +95,8 @@ english_unit
   / quart
   / tablespoon
   / teaspoon
+  / foot
+  / inch
 
 cup
   = 'cups'i
@@ -144,6 +162,20 @@ teaspoon
   / 'tsp'i
   / 't.'
   / 't'
+
+foot
+  = 'feet'i
+  / 'foot'i
+  / 'ft.'i
+  / 'ft'i
+  / "'"
+
+inch
+  = 'inches'i
+  / 'inch'i
+  / 'in.'i
+  / 'in'i
+  / '"'
 
 metric_unit
   = gram
