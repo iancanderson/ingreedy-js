@@ -177,6 +177,12 @@ describe("Unit parsing", function() {
       expect(parser).toParseUnit('1 ml. water');
       expect(parser).toParseUnit('1 ml water');
     });
+
+    it('parses a dozen', function() {
+      expect(parser).toParseUnit('1 dozen eggs');
+      expect(parser).toParseUnit('1/2 dozen eggs');
+    });
+
   });
 
   describe('imprecise units', function() {
