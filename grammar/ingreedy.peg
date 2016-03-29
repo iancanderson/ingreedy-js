@@ -184,11 +184,15 @@ milliliter
   / 'ml.'i
   / 'ml'i
 
+dozen
+  = 'dozen'i
+
 imprecise_unit
   = dash
   / handful
   / pinch
   / touch
+  / dozen
 
 dash
   = 'dashes'i
