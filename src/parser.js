@@ -1875,3 +1875,5 @@ Ingreedy = (function() {
     parse:       parse
   };
 })();
+
+module.exports = Ingreedy
